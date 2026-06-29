@@ -1,0 +1,5 @@
+os aquivos .xml nesta (extras )pastas contidos, são para carregamento site www.drawio.com a fim de visualiza os digramas da UML.
+já o arquivo: postman_collection.json, server para ser importar no postman a fim de agilizar a criação dos EndPoints, bastando apenas importar e todos os endpoints criados já estarão prontos 
+OBS: 
+este projeto também conta com a comentação Swagger, bastando apenas executar a aplicação (index.js) usar o endereço: http://localhost:3000/docs
+para testar os end-points
