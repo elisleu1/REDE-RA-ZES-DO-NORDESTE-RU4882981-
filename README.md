@@ -85,12 +85,12 @@ npm install
    ** para fins de teste a uma vez criado o banco de dados e após instalado todas as ferramentas e dependências nessessárias para rodar a aplicação, basta executar (index.js) que já e insere automaticate dados no banco de dados (populando o bd), dados este que são:
 
    2.1 USUARIOS INSERIDOS AUTOMATICAMENTE (script de seed)
-   _______________________________________________________________________________________________________________
-   | nome    |       email         |  telefone   | senhaHash      |   role    | consentimentoLGPD | fidelidadeId |
-   | ------- | ------------------- | ----------- | -------------- | --------- | ----------------- |              |
-   | Admin   | admin@example.com   | 11911111111 | $2b$10$IG...   | 'ADMIN'   | true              | 1            |
-   | Cliente | cliente@example.com | 22922222222 | $2b$10$zv...   | 'CLIENTE' | true              | 2            |
-   |_____________________________________________________________________________________________________________|
+   ___________________________________________________________________________
+   | nome   | email              | telefone    | role    | consentimentoLGPD |
+   | ------ | ------------------ | ----------- | ------- | ----------------- |
+   | Admin  | admin@example.com  | 11911111111 | ADMIN   | true              |
+   | Cliente| cliente@example.com| 22922222222 | CLIENTE | true              |
+   __________________________________________________________________________|
 
    2.1.1 **Para inserção manual direto no bando de dados MySQL  (EXEMPLO)
    INSERT INTO usuario (nome, email, telefone, senhaHash, role, fidelidadeId, consentimentoLGPD)
