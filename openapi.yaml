@@ -1,0 +1,954 @@
+openapi: 3.0.3
+info:
+  title: API Pedidos e Gestão
+  version: 1.0.0
+  description: >
+    API para gerenciamento de usuários, produtos, unidades e pedidos.
+    Documentação gerada a partir dos arquivos de rota fornecidos (usuarios.js, produtos.js, unidades.js, pedidos.js).
+servers:
+  - url: http://localhost:3000
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UsuarioCreate:
+      type: object
+      required:
+        - nome
+        - senha
+        - consentimentoLGPD
+      properties:
+        nome:
+          type: string
+          example: "Ana Silva"
+        email:
+          type: string
+          format: email
+          example: "ana@example.com"
+        telefone:
+          type: string
+          example: "33988332244"
+        senha:
+          type: string
+          format: password
+          example: "senha123"
+        consentimentoLGPD:
+          type: boolean
+          example: true
+
+    UsuarioLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        telefone:
+          type: string
+        senha:
+          type: string
+          format: password
+      example:
+        email: "admin@example.com"
+        senha: "1234"
+
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "Ana Silva"
+        email:
+          type: string
+          format: email
+          example: "ana@example.com"
+        telefone:
+          type: string
+          example: "33988332244"
+        role:
+          type: string
+          enum: [CLIENTE, ADMIN, ATENDENTE, COZINHA, ENTREGADOR]
+          example: CLIENTE
+
+    ProdutoCreate:
+      type: object
+      required: [nome, preco, estoque]
+      properties:
+        nome:
+          type: string
+          example: "Laranja"
+        preco:
+          type: number
+          format: float
+          example: 5.0
+        categoria:
+          type: string
+          example: "frutas"
+        estoque:
+          type: integer
+          example: 70
+
+    Produto:
+      allOf:
+        - $ref: '#/components/schemas/ProdutoCreate'
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 2
+
+    UnidadeCreate:
+      type: object
+      required: [nome, endereco, cep]
+      properties:
+        nome:
+          type: string
+          example: "Valadares"
+        endereco:
+          type: string
+          example: "Av. Minas Gerais, 987"
+        cep:
+          type: string
+          example: "11111-000"
+
+    Unidade:
+      allOf:
+        - $ref: '#/components/schemas/UnidadeCreate'
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+
+    ItemPedido:
+      type: object
+      required: [produtoId, quantidade]
+      properties:
+        produtoId:
+          type: integer
+          example: 9
+        quantidade:
+          type: integer
+          example: 2
+        precoUnitario:
+          type: number
+          format: float
+          example: 5.0
+
+    PedidoCreate:
+      type: object
+      required: [unidadeId, itens]
+      properties:
+        unidadeId:
+          type: integer
+          example: 1
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPedido'
+        metodoPagamento:
+          type: string
+          example: "DINHEIRO"
+        canalPedido:
+          type: string
+          example: "APP"
+        localEntrega:
+          type: string
+          example: "Rua Araguaia, 888"
+
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        unidade:
+          $ref: '#/components/schemas/Unidade'
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPedido'
+        valorTotal:
+          type: number
+          format: float
+          example: 10.0
+        status:
+          type: string
+          enum: [PENDENTE, "EM PRODUÇÃO", PRONTO, "A CAMINHO", ENTREGUE, CANCELADO]
+          example: PENDENTE
+        metodoPagamento:
+          type: string
+          example: "DINHEIRO"
+        dataPedido:
+          type: string
+          format: date-time
+
+    PagamentoCreate:
+      type: object
+      required: [metodo, valorPago]
+      properties:
+        metodo:
+          type: string
+          example: "CEDULA"
+        valorPago:
+          type: number
+          format: float
+          example: 10.0
+
+    Pagamento:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        metodo:
+          type: string
+          example: "CEDULA"
+        valor:
+          type: number
+          format: float
+          example: 10.0
+        dataPagamento:
+          type: string
+          format: date-time
+
+    Fidelidade:
+      type: object
+      properties:
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        pontos:
+          type: integer
+          example: 10
+
+    Auditoria:
+      type: object
+      properties:
+        id:
+          type: integer
+        usuarioId:
+          type: integer
+        acao:
+          type: string
+        recurso:
+          type: string
+        detalhes:
+          type: string
+        dataAcao:
+          type: string
+          format: date-time
+
+  responses:
+    Unauthorized:
+      description: Token inválido ou ausente
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Token inválido"
+    Forbidden:
+      description: Acesso negado (role insuficiente)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Sem permissão para acessar este recurso"
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Recurso não encontrado"
+    ServerError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Erro ao conectar: ..."
+
+paths:
+  /usuarios/register:
+    post:
+      tags: [Usuarios]
+      summary: Registrar novo usuário (consentimento LGPD obrigatório)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioCreate'
+      responses:
+        '201':
+          description: Usuário registrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário registrado com sucesso"
+        '400':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /usuarios/login:
+    post:
+      tags: [Usuarios]
+      summary: Autenticar usuário (email ou telefone)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioLogin'
+      responses:
+        '200':
+          description: Token JWT e dados do usuário
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login realizado com sucesso"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  usuario:
+                    $ref: '#/components/schemas/Usuario'
+        '401':
+          description: Senha inválida
+        '403':
+          description: Conta bloqueada por muitas tentativas
+
+  /usuarios:
+    get:
+      tags: [Usuarios]
+      summary: Listar todos os usuários (ADMIN, ATENDENTE)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /usuarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags: [Usuarios]
+      summary: Buscar usuário por ID (ADMIN, ATENDENTE)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags: [Usuarios]
+      summary: Atualizar usuário (ADMIN ou o próprio usuário)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome: { type: string }
+                email: { type: string }
+                telefone: { type: string }
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Usuarios]
+      summary: Excluir conta (ADMIN pode excluir qualquer, CLIENTE pode excluir a própria)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Conta excluída com sucesso
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /usuarios/register-admin:
+    post:
+      tags: [Usuarios]
+      summary: Registrar funcionário (ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nome, senha, consentimentoLGPD]
+              properties:
+                nome: { type: string }
+                email: { type: string }
+                telefone: { type: string }
+                senha: { type: string }
+                role:
+                  type: string
+                  enum: [ADMIN, ATENDENTE, COZINHA, ENTREGADOR]
+                consentimentoLGPD: { type: boolean }
+      responses:
+        '201':
+          description: Funcionário registrado
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /usuarios/{id}/fidelidade:
+    get:
+      tags: [Usuarios]
+      summary: Consultar pontos de fidelidade de um cliente
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pontos de fidelidade
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario:
+                    $ref: '#/components/schemas/Usuario'
+                  pontos:
+                    type: integer
+                    example: 0
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /produtos:
+    get:
+      tags: [Produtos]
+      summary: Listar produtos (público)
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+    post:
+      tags: [Produtos]
+      summary: Criar produto (ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoCreate'
+      responses:
+        '201':
+          description: Produto criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /produtos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags: [Produtos]
+      summary: Atualizar produto (ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome: { type: string }
+                preco: { type: number }
+                categoria: { type: string }
+                estoque: { type: integer }
+      responses:
+        '200':
+          description: Produto atualizado
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Produtos]
+      summary: Remover produto (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Produto removido
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /unidades:
+    get:
+      tags: [Unidades]
+      summary: Listar unidades
+      responses:
+        '200':
+          description: Lista de unidades
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Unidade'
+    post:
+      tags: [Unidades]
+      summary: Criar unidade (ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnidadeCreate'
+      responses:
+        '201':
+          description: Unidade criada
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /unidades/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags: [Unidades]
+      summary: Atualizar unidade (ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome: { type: string }
+                endereco: { type: string }
+                cep: { type: string }
+      responses:
+        '200':
+          description: Unidade atualizada
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Unidades]
+      summary: Remover unidade (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Unidade removida
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pedidos:
+    post:
+      tags: [Pedidos]
+      summary: Criar pedido (CLIENTE ou ADMIN)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoCreate'
+      responses:
+        '201':
+          description: Pedido criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Pedido criado com sucesso"
+                  pedido:
+                    $ref: '#/components/schemas/Pedido'
+        '400':
+          description: Requisição inválida
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    get:
+      tags: [Pedidos]
+      summary: Listar todos os pedidos (ADMIN, ATENDENTE)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de pedidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /pedidos/status/{status}:
+    get:
+      tags: [Pedidos]
+      summary: Listar pedidos filtrados por status
+      parameters:
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [PENDENTE, "EM PRODUÇÃO", PRONTO, ENTREGUE, CANCELADO]
+      responses:
+        '200':
+          description: Pedidos filtrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+        '400':
+          description: Status inválido
+
+  /pedidos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags: [Pedidos]
+      summary: Buscar pedido por ID (ADMIN, ATENDENTE, CLIENTE)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Pedido encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags: [Pedidos]
+      summary: Atualizar dados do pedido (ADMIN ou o próprio CLIENTE)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unidadeId: { type: integer }
+                itens:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ItemPedido'
+                metodoPagamento: { type: string }
+                canalPedido: { type: string }
+      responses:
+        '200':
+          description: Pedido atualizado com sucesso
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pedidos/{id}/pagar:
+    post:
+      tags: [Pedidos]
+      summary: Pagar pedido (CLIENTE ou ADMIN)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagamentoCreate'
+      responses:
+        '200':
+          description: Pagamento realizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Pagamento realizado com sucesso"
+        '400':
+          description: Valor insuficiente ou requisição inválida
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pedidos/{id}/cancelar:
+    patch:
+      tags: [Pedidos]
+      summary: Cancelar pedido (CLIENTE próprio ou ADMIN)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pedido cancelado e estoque devolvido com sucesso
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pedidos/{id}/status:
+    patch:
+      tags: [Pedidos]
+      summary: Atualizar status do pedido (ATENDENTE, ENTREGADOR, COZINHA, ADMIN)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [PENDENTE, "EM PRODUÇÃO", PRONTO, "A CAMINHO", ENTREGUE, CANCELADO]
+      responses:
+        '200':
+          description: Status atualizado com sucesso
+        '400':
+          description: Status inválido
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pedidos/relatorios/financeiro:
+    get:
+      tags: [Relatorios]
+      summary: Relatório financeiro detalhado (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Relatório financeiro detalhado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalReceita:
+                    type: number
+                    example: 1234.56
+                  quantidadePagamentos:
+                    type: integer
+                    example: 10
+                  pagamentos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: integer }
+                        pedidoId: { type: integer }
+                        unidade: { type: string }
+                        cliente: { type: string }
+                        metodo: { type: string }
+                        valor: { type: number }
+                        dataPagamento: { type: string, format: date-time }
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /pedidos/relatorios/produtos:
+    get:
+      tags: [Relatorios]
+      summary: Relatório de produtos mais consumidos (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Ranking de produtos por receita
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalProdutos: { type: integer }
+                  receitaGlobal: { type: number }
+                  ranking:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        produtoId: { type: integer }
+                        nome: { type: string }
+                        quantidadeTotal: { type: integer }
+                        receitaTotal: { type: number }
+                        percentualReceita: { type: string }
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /pedidos/relatorios/unidades:
+    get:
+      tags: [Relatorios]
+      summary: Relatório de vendas por unidade (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Ranking por unidade
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalUnidades: { type: integer }
+                  receitaGlobal: { type: string }
+                  ranking:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        unidadeId: { type: integer }
+                        nome: { type: string }
+                        totalPedidos: { type: integer }
+                        receitaTotal: { type: string }
+                        percentualReceita: { type: string }
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /pedidos/relatorios/auditoria-completa:
+    get:
+      tags: [Relatorios]
+      summary: Relatório completo de auditoria (ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de registros de auditoria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Auditoria'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+tags:
+  - name: Usuarios
+    description: Endpoints para cadastro, autenticação e gerenciamento de usuários
+  - name: Produtos
+    description: CRUD de produtos (ADMIN)
+  - name: Unidades
+    description: CRUD de unidades (ADMIN)
+  - name: Pedidos
+    description: Criação, pagamento, cancelamento e status de pedidos
+  - name: Relatorios
+    description: Relatórios financeiros, produtos e auditoria (ADMIN)
+
+externalDocs:
+  description: Coleção Postman usada como referência
+  url: "file://(seu-caminho)/Trilha_Back-End_Uninter.postman_collection.json"
