@@ -1,0 +1,1055 @@
+{
+  "info": {
+    "_postman_id": "91d8b9a6-8c1e-47b6-8718-8d96f12d7a6b",
+    "name": "Trilha Back-End Uninter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50174785",
+    "_collection_link": "https://go.postman.co/collection/50174785-91d8b9a6-8c1e-47b6-8718-8d96f12d7a6b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Registrar Usuário",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"ana\",\r\n  \"email\": \"ana@email.com\",\r\n  \"telefone\": \"33988332244\",\r\n  \"senha\": \"1234\",\r\n  \"consentimentoLGPD\": true\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Usuarios (ATENDENTE /ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Editar Usuário (CLIENTE, ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Alan\",\r\n  \"email\": \"alan@email.com\",\r\n  \"telefone\": \"(35) 977887788\",\r\n  \"senha\": \"1234\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Registrar Funcionário (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Entregador\",\r\n  \"email\": \"entregador@example.com\",\r\n  \"telefone\": \"(55) 955555555\",\r\n  \"senha\": \"1234\",\r\n  \"role\": \"ENTREGADOR\",\r\n  \"consentimentoLGPD\": true\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/register-admin",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "register-admin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar função (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbGlhc0BleGFtcGxlLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MTAyMjU2NSwiZXhwIjoxNzgxMDI2MTY1fQ.9Yxb62G04-p_Ojvhj80c3jdPjYl2ykdY56RuCq1bitA",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"role\": \"ATENDENTE\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/4/role",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "4",
+            "role"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remover Conta (CLIENTE / ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"senha\": \"1234\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar Usuario (ATENDENTE / ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar Usuario (por Email)",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/email/admin@example.com",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "email",
+            "admin@example.com"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Unidade (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ6ZXplQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzgwMTcyNDI2LCJleHAiOjE3ODAxNzYwMjZ9.PbsYwnjzWTfy-LhgkQwVeCBU2drbogW55eWaI3fhd7w",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Valadares\",\r\n  \"endereco\": \"AV.Mnas Gerais, 987\",\r\n  \"cep\": \"11111-000\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/unidades",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "unidades"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ver Unidades",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/unidades",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "unidades"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Unidades (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"delete\",\r\n  \"endereco\": \"AV.delet, 01\",\r\n  \"cep\": \"11111-000\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/unidades/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "unidades",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remover Unidade (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ6ZXplQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzgwMTcyNDI2LCJleHAiOjE3ODAxNzYwMjZ9.PbsYwnjzWTfy-LhgkQwVeCBU2drbogW55eWaI3fhd7w",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/unidades/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "unidades",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Produto (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Laranja\",\r\n  \"preco\": 5.00,\r\n  \"categoria\": \"frutas\",\r\n  \"estoque\": 70\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/produtos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "produtos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/produtos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "produtos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Produto (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Chocolate Quente\",\r\n  \"preco\": 5.90,\r\n  \"categoria\": \"Liquidos\",\r\n  \"estoque\": 30\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/produtos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "produtos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remover Produto (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/produtos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "produtos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fazer Pedido (CLIENT)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"unidadeId\": 1,\r\n  \"itens\": [\r\n    {\r\n      \"produtoId\": 9,\r\n      \"quantidade\": 1\r\n    }\r\n  ],\r\n  \"metodoPagamento\": \"DINHEIRO\",\r\n  \"canalPedido\": \"BALCÃO\",\r\n  \"localEntrega\": \"Rua araguaia N°888\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Pedido (CLIENTE / ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"unidadeId\": 1,\r\n  \"itens\": [\r\n    {\r\n      \"produtoId\": 4,\r\n      \"quantidade\": 1\r\n    }\r\n  ],\r\n  \"metodoPagamento\": \"DINHEIRO\",\r\n  \"canalPedido\": \"BALCÃO\",\r\n  \"localEntrega\": \"Rua araguaia N°888\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/pedidos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pagar Pedido (CLIENT / ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"metodo\": \"CEDULA\",\r\n  \"valorPago\": 3.00\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/pedidos/1/pagar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "1",
+            "pagar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultar Pedido (ADMIN, ATENDENTE, CLIENTE",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar Pedido (CLINTE/ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjQzMDE0NywiZXhwIjoxNzgyNDMzNzQ3fQ.WBqD4pfBa93MT-NWldW4t6O8JZkWNpqF_lkX4cyRtUw",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/pedidos/3/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "3",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Status (ATENDENTE, ADMIN, COZINHA, ENTREGADOR)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjQzNDkyMCwiZXhwIjoxNzgyNDM4NTIwfQ.XWgxkOYjmU2QrobPHCjNotWQ_UUut3C5_MjOaSkAlgo",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"A CAMINHO\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/pedidos/3/status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "3",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Todos Pedidos (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar por Status (CLIENTE / ADMIN / COZINHA / ENTEGADOR",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/status/PENDENTE",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "status",
+            "PENDENTE"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultar Fidelidade (Cliente / ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios/1/fidelidade",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "1",
+            "fidelidade"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Relatório Financeiro (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/relatorios/financeiro",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "relatorios",
+            "financeiro"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Relatório Produtos Mais Vendidos (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/relatorios/produtos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "relatorios",
+            "produtos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Relatório Vendas por Unidades (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/relatorios/unidades",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "relatorios",
+            "unidades"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auditoria (ADMIN)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/pedidos/relatorios/auditoria-completa",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "pedidos",
+            "relatorios",
+            "auditoria-completa"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

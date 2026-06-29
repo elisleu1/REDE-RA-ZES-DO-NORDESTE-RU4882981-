@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="DER-CARD" name="DER com Cardinalidade">
+    <mxGraphModel dx="1654" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Usuario" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1E88E5;" value="Usuario&#xa;──────────────&#xa;id (PK)&#xa;nome&#xa;email (unique)&#xa;telefone (unique)&#xa;senhaHash&#xa;role&#xa;consentimentoLGPD" vertex="1">
+          <mxGeometry height="240" width="270" x="430" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="Unidade" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#43A047;" value="Unidade&#xa;──────────────&#xa;id (PK)&#xa;nome&#xa;endereco&#xa;cep" vertex="1">
+          <mxGeometry height="170" width="270" x="10" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="Produto" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#F9A825;" value="Produto&#xa;──────────────&#xa;id (PK)&#xa;nome&#xa;preco&#xa;categoria&#xa;estoque" vertex="1">
+          <mxGeometry height="190" width="270" x="855" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="Pedido" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#8E24AA;" value="Pedido&#xa;──────────────&#xa;id (PK)&#xa;dataPedido&#xa;status&#xa;valorTotal&#xa;canalPedido&#xa;localEntrega&#xa;usuarioId (FK)&#xa;unidadeId (FK)&#xa;atualizadoPorId (FK)&#xa;ultimaAcao" vertex="1">
+          <mxGeometry height="270" width="310" x="410" y="5" as="geometry" />
+        </mxCell>
+        <mxCell id="ItemPedido" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0288D1;" value="ItemPedido&#xa;──────────────&#xa;id (PK)&#xa;quantidade&#xa;precoUnitario&#xa;pedidoId (FK)&#xa;produtoId (FK)" vertex="1">
+          <mxGeometry height="200" width="300" x="840" y="295" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagamento" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FB8C00;" value="Pagamento&#xa;──────────────&#xa;id (PK)&#xa;metodo&#xa;valor&#xa;dataPagamento&#xa;codigoTransacao&#xa;pedidoId (FK)" vertex="1">
+          <mxGeometry height="200" width="300" x="840" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Fidelidade" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;" value="Fidelidade&#xa;──────────────&#xa;id (PK)&#xa;pontos&#xa;usuarioId (FK)" vertex="1">
+          <mxGeometry height="160" width="310" x="410" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="Auditoria" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;" value="Auditoria&#xa;──────────────&#xa;id (PK)&#xa;usuarioId (FK)&#xa;acao&#xa;recurso&#xa;detalhes&#xa;dataAcao" vertex="1">
+          <mxGeometry height="210" width="300" x="10" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" edge="1" parent="1" source="Usuario" target="Pedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="400" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" edge="1" parent="1" source="Unidade" target="Pedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" edge="1" parent="1" source="Pedido" target="ItemPedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" edge="1" parent="1" source="Produto" target="ItemPedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" edge="1" parent="1" source="Pedido" target="Pagamento">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" edge="1" parent="1" source="Usuario" target="Fidelidade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" edge="1" parent="1" source="Usuario" target="Auditoria">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-1" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="380" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-2" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="560" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-3" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="270" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-5" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="560" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-6" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="830" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-7" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="310" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-8" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="710" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-9" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="990" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-10" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="990" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-12" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="560" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-13" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="560" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-14" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="1" vertex="1">
+          <mxGeometry height="20" width="30" x="710" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="HYldl8C63ieGlISV3WFh-15" parent="1" style="text;html=1;align=center;verticalAlign=middle;" value="N" vertex="1">
+          <mxGeometry height="20" width="30" x="810" y="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

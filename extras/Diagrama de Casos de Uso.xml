@@ -1,0 +1,102 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Casos de Uso - Raízes do Nordeste" id="0">
+    <mxGraphModel dx="1654" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CbTZikhUtQShfzJAtJAW-12" edge="1" parent="1" source="actor_cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc_consultar_fidelidade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-13" edge="1" parent="1" source="actor_cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc_cancelar_pedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-15" edge="1" parent="1" source="actor_cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="CbTZikhUtQShfzJAtJAW-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_cliente" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Cliente" vertex="1">
+          <mxGeometry height="80" width="40" x="40" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_atendente" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Atendente" vertex="1">
+          <mxGeometry height="80" width="40" x="54" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_cozinha" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Cozinha" vertex="1">
+          <mxGeometry height="80" width="40" x="54" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_entregador" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Entregador" vertex="1">
+          <mxGeometry height="80" width="40" x="54" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-7" edge="1" parent="1" source="actor_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_cancelar_pedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-11" edge="1" parent="1" source="actor_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="uc_consultar_fidelidade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-17" edge="1" parent="1" source="actor_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_emitir_relatorios">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-18" edge="1" parent="1" source="actor_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_gerenciar_produtos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-19" edge="1" parent="1" source="actor_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_gerenciar_unidades">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_admin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Administrador (ADMIN)" vertex="1">
+          <mxGeometry height="80" width="40" x="870" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_atualizar_status" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#f8cecc;" value="Atualizar Status" vertex="1">
+          <mxGeometry height="60" width="220" x="194" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_cancelar_pedido" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#e1d5e7;" value="Cancelar Pedido" vertex="1">
+          <mxGeometry height="60" width="220" x="350" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_gerenciar_produtos" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#dae8fc;" value="Gerenciar Produtos" vertex="1">
+          <mxGeometry height="60" width="220" x="560" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_gerenciar_unidades" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#dae8fc;" value="Gerenciar Unidades" vertex="1">
+          <mxGeometry height="60" width="220" x="550" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_consultar_fidelidade" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#fff2cc;" value="Consultar Fidelidade" vertex="1">
+          <mxGeometry height="60" width="220" x="350" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_emitir_relatorios" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#f5f5f5;" value="Emitir Relatórios" vertex="1">
+          <mxGeometry height="60" width="220" x="550" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_a1" edge="1" parent="1" source="actor_atendente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;" target="uc_atualizar_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_coz1" edge="1" parent="1" source="actor_cozinha" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;" target="uc_atualizar_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ent1" edge="1" parent="1" source="actor_entregador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;" target="uc_atualizar_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="group_operacao" parent="1" style="group;rounded=1;strokeColor=#999999;dashed=1;" value="" vertex="1">
+          <mxGeometry height="730" width="660" x="160" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_efetuar_pagamento" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#d5e8d4;" value="Efetuar Pagamento" vertex="1">
+          <mxGeometry height="60" width="220" x="260" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-14" parent="1" style="shape=ellipse;perimeter=ellipsePerimeter;html=1;strokeColor=#000000;fillColor=#e1d5e7;" value="Realizar Pedido" vertex="1">
+          <mxGeometry height="60" width="220" x="200" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-20" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Gateway da Pagamento (Mock)" vertex="1">
+          <mxGeometry height="80" width="40" x="880" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-22" edge="1" parent="1" source="uc_efetuar_pagamento" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.3333333333333333;entryDx=0;entryDy=0;entryPerimeter=0;" target="CbTZikhUtQShfzJAtJAW-20" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="660" y="440" as="sourcePoint" />
+            <mxPoint x="710" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-23" connectable="0" parent="CbTZikhUtQShfzJAtJAW-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;Include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0313" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CbTZikhUtQShfzJAtJAW-24" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Sistema de Pedidos&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="140" x="400" y="420" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
